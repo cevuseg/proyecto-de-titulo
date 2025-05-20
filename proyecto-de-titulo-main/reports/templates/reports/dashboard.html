@@ -1,0 +1,55 @@
+{% extends 'reports/base.html' %}
+
+{% block title %}Panel Principal - Reportes Power BI{% endblock %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h2>Tus Roles</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for role in roles %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ role.name }}</h5>
+                        <p class="card-text">{{ role.description }}</p>
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="http://desktop-m5d5k4j/Reports/browse/{{ role.name|urlencode }}" target="_blank" class="btn btn-outline-secondary">
+                                <i class="bi bi-folder2-open"></i> Ir a carpeta de reportes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    No tienes roles asignados. Contacta al administrador para obtener acceso.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{# Acceso directo al portal PBIRS solo para superusuarios #}
+{% if user.is_superuser %}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h4 class="mb-0">Acceso al Portal Power BI Report Server</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Accede directamente al portal de Power BI Report Server para ver todos los reportes disponibles.
+                </p>
+                <a href="{{ pbirs_url }}" target="_blank" class="btn btn-warning" rel="noopener noreferrer">
+                    <i class="bi bi-box-arrow-up-right"></i> Abrir Portal Power BI Report Server
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %} 

@@ -1,0 +1,300 @@
+{% extends 'reports/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Gestionar Roles - Reportes Power BI{% endblock %}
+
+{% block content %}
+<!-- Mensajes de éxito, advertencia y error -->
+{% if messages %}
+    <div class="mt-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Barra de búsqueda de roles -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <form method="get" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Buscar rol por nombre..." value="{{ search_query }}">
+            <button type="submit" class="btn btn-outline-primary">Buscar</button>
+        </form>
+    </div>
+    <div class="col-md-4 d-flex justify-content-end align-items-center">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createRoleModal">
+            <i class="bi bi-plus-circle"></i> Nuevo Rol
+        </button>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for role in roles %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-shield-lock me-2"></i>{{ role.name }}
+                </h5>
+                <p class="card-text mb-1"><strong>Descripción:</strong> {{ role.description }}</p>
+                <p class="card-text mb-1"><strong>Usuarios asignados:</strong> {{ role_user_count|get_item:role.id }}</p>
+                <p class="card-text mb-1"><strong>Reportes asignados:</strong></p>
+                <ul>
+                    {% for report in role.reports.all %}
+                        <li>{{ report.name }}</li>
+                    {% empty %}
+                        <li><em>No hay reportes asignados</em></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ role.id }}">
+                    <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteRoleModal{{ role.id }}">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Rol -->
+    <div class="modal fade" id="editRoleModal{{ role.id }}" tabindex="-1" aria-labelledby="editRoleModalLabel{{ role.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" name="edit_role_id" value="{{ role.id }}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editRoleModalLabel{{ role.id }}">Editar Rol</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Rol</label>
+                            <input type="text" name="role_name" class="form-control" value="{{ role.name }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea name="role_description" class="form-control">{{ role.description }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Grupo/Usuario Windows/AD</label>
+                            <input type="text" name="windows_group" class="form-control" value="{{ role.windows_group }}" placeholder="Ej: DESKTOP-M5D5K4J\Finanzas">
+                            <small class="text-muted">Ejemplo: DESKTOP-M5D5K4J\Finanzas o DESKTOP-M5D5K4J\abastecimiento</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reportes asignados</label>
+                            <select name="role_reports" class="form-select" multiple>
+                                {% for report in reports %}
+                                    <option value="{{ report.id }}" {% if report in role.reports.all %}selected{% endif %}>{{ report.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <small class="text-muted">Mantén presionada la tecla Ctrl (o Cmd en Mac) para seleccionar varios reportes.</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-save-role">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar Rol -->
+    <div class="modal fade" id="deleteRoleModal{{ role.id }}" tabindex="-1" aria-labelledby="deleteRoleModalLabel{{ role.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_role_id" value="{{ role.id }}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteRoleModalLabel{{ role.id }}">Eliminar Rol</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar el rol <strong>{{ role.name }}</strong>?</p>
+                        <div class="alert alert-warning mb-0">Esta acción no se puede deshacer.</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal Crear Rol -->
+<div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="createRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="create_role" value="1">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createRoleModalLabel">Nuevo Rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del Rol</label>
+                        <input type="text" name="role_name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea name="role_description" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Grupo/Usuario Windows/AD</label>
+                        <input type="text" name="windows_group" class="form-control" placeholder="Ej: DESKTOP-M5D5K4J\Finanzas">
+                        <small class="text-muted">Ejemplo: DESKTOP-M5D5K4J\Finanzas o DESKTOP-M5D5K4J\abastecimiento</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reportes asignados</label>
+                        <select name="role_reports" class="form-select" multiple>
+                            {% for report in reports %}
+                                <option value="{{ report.id }}">{{ report.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Mantén presionada la tecla Ctrl (o Cmd en Mac) para seleccionar varios reportes.</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success btn-save-role">Crear Rol</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Asignación de Roles a Usuarios -->
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h3>Asignar Roles a Usuarios</h3>
+        <div class="card mt-3">
+            <div class="card-body">
+                <form method="post" class="row g-3 align-items-end">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="add">
+                    <div class="col-md-4">
+                        <label for="user" class="form-label">Usuario</label>
+                        <select name="user" id="user" class="form-select" required>
+                            <option value="">Seleccionar usuario...</option>
+                            {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="role" class="form-label">Rol</label>
+                        <select name="role" id="role" class="form-select" required>
+                            <option value="">Seleccionar rol...</option>
+                            {% for role in roles %}
+                            <option value="{{ role.id }}">{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Asignar Rol</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Asignaciones de Roles Actuales</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Rol</th>
+                                <th>Fecha de Asignación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user_role in user_roles %}
+                            <tr>
+                                <td>{{ user_role.user.username }}</td>
+                                <td>{{ user_role.role.name }}</td>
+                                <td>{{ user_role.created_at|date:"d/m/Y" }}</td>
+                                <td>
+                                    <form method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="remove">
+                                        <input type="hidden" name="user" value="{{ user_role.user.id }}">
+                                        <input type="hidden" name="role" value="{{ user_role.role.id }}">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este rol?')">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No se encontraron asignaciones de roles.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} Feedback visual y deshabilitar botones con JS {% endcomment %}
+{% block extra_js %}
+<script>
+// Feedback visual y validación de formularios Bootstrap
+(function () {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+
+    // Deshabilitar botón de guardar si falta info en crear/editar rol
+    function toggleSaveButtons() {
+        document.querySelectorAll('.needs-validation').forEach(function(form) {
+            var saveBtn = form.querySelector('.btn-save-role');
+            if (!saveBtn) return;
+            var nameInput = form.querySelector('input[name="role_name"]');
+            if (nameInput && nameInput.value.trim() === '') {
+                saveBtn.disabled = true;
+            } else {
+                saveBtn.disabled = false;
+            }
+        });
+    }
+    document.querySelectorAll('input[name="role_name"]').forEach(function(input) {
+        input.addEventListener('input', toggleSaveButtons);
+    });
+    toggleSaveButtons();
+})();
+// Filtro para obtener valor de un diccionario en template
+window.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.get_item === 'undefined') {
+        window.get_item = function(dict, key) { return dict[key]; };
+    }
+});
+</script>
+{% endblock %}
+{% endblock %} 

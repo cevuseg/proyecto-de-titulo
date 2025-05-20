@@ -1,0 +1,69 @@
+{% extends 'reports/base.html' %}
+
+{% block title %}{{ report.name }} - Power BI Reports{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'reports:dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">{{ report.name }}</li>
+            </ol>
+        </nav>
+        
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="card-title mb-0">{{ report.name }}</h2>
+                <div>
+                    <a href="{% url 'reports:dashboard' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left"></i> Volver al Dashboard
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if error_message %}
+                <div class="alert alert-danger">
+                    {{ error_message }}
+                </div>
+                {% else %}
+                <div id="reportContainer" style="height: 800px; width: 100%;"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.18.6/dist/powerbi.min.js"></script>
+<script>
+    // Configuration for embedding the report
+    const config = {
+        type: 'report',
+        tokenType: models.TokenType.Embed,
+        accessToken: '{{ access_token }}',
+        embedUrl: '{{ embed_url }}',
+        id: '{{ report.report_id }}',
+        permissions: models.Permissions.Read,
+        settings: {
+            navContentPaneEnabled: true,
+            filterPaneEnabled: true,
+            panes: {
+                filters: {
+                    visible: true
+                },
+                pageNavigation: {
+                    visible: true
+                }
+            }
+        }
+    };
+
+    // Get a reference to the embedded report HTML element
+    const reportContainer = document.getElementById('reportContainer');
+
+    // Embed the report and display it within the container element
+    powerbi.embed(reportContainer, config);
+</script>
+{% endblock %} 
