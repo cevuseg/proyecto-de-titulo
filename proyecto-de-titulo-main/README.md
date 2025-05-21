@@ -1,155 +1,316 @@
 # Sistema de Visualización de Reportes Power BI
 
-Este sistema permite la gestión y visualización de reportes de Power BI Report Server (PBIRS) con control de acceso basado en roles y grupos de Windows/Active Directory, desarrollado en Django.
-
----
-
-## Tabla de Contenidos
-- [Descripción General](#descripción-general)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Requisitos](#requisitos)
-- [Instalación y Configuración](#instalación-y-configuración)
-- [Gestión de Usuarios y Roles](#gestión-de-usuarios-y-roles)
-- [Gestión de Reportes](#gestión-de-reportes)
-- [Comandos Personalizados](#comandos-personalizados)
-- [Buenas Prácticas](#buenas-prácticas)
-- [Licencia](#licencia)
-
----
+## Índice
+1. [Descripción General](#descripción-general)
+2. [Características Principales](#características-principales)
+3. [Estructura del Proyecto](#estructura-del-proyecto)
+4. [Componentes del Sistema](#componentes-del-sistema)
+5. [Guía de Instalación](#guía-de-instalación)
+6. [Configuración del Sistema](#configuración-del-sistema)
+7. [Manual de Usuario](#manual-de-usuario)
+8. [Desarrollo y Contribución](#desarrollo-y-contribución)
+9. [Requisitos del Sistema](#requisitos-del-sistema)
+10. [Solución de Problemas](#solución-de-problemas)
+11. [Licencia](#licencia)
 
 ## Descripción General
 
-Este sistema permite:
-- Visualizar reportes de Power BI Report Server según permisos de usuario.
-- Gestionar usuarios, roles y su mapeo a grupos de Windows/AD.
-- Controlar el acceso a reportes mediante roles y grupos de Windows.
-- Integrarse con SQL Server y PBIRS para autenticación y visualización segura.
+Este sistema es una plataforma web desarrollada en Django que permite la gestión y visualización de reportes de Power BI Report Server (PBIRS). El sistema está diseñado para proporcionar una interfaz intuitiva y segura para acceder a reportes empresariales, con un robusto sistema de control de acceso basado en roles y grupos de Windows/Active Directory.
 
----
+## Características Principales
+
+- 🔐 Autenticación y autorización basada en roles
+- 📊 Integración nativa con Power BI Report Server
+- 👥 Gestión de usuarios y grupos de Windows/AD
+- 📱 Interfaz responsiva y moderna
+- 🔄 Sincronización automática de reportes
+- 📈 Visualización de métricas y KPIs
+- 🔍 Búsqueda avanzada de reportes
+- 📱 Soporte para dispositivos móviles
+- 📊 Exportación de datos en múltiples formatos
+- 🔔 Sistema de notificaciones
 
 ## Estructura del Proyecto
 
 ```
-proyecto-de-titulo-main/
-├── manage.py                  # Script de administración de Django
-├── requirements.txt           # Dependencias del proyecto
-├── powerbi_reports/           # Configuración principal del proyecto Django
-│   ├── settings.py            # Configuración global y PBIRS
-│   ├── urls.py                # URLs principales
-│   ├── pbirs_client.py        # Cliente para interactuar con PBIRS
-│   └── ...
-├── reports/                   # Aplicación principal de reportes
-│   ├── models.py              # Modelos de datos: roles, usuarios, reportes
-│   ├── views.py               # Vistas y lógica de negocio
-│   ├── urls.py                # URLs de la app de reportes
+proyecto-de-titulo/
+│
+├── reports/                    # Aplicación principal de reportes
+│   ├── __init__.py            # Archivo de inicialización de la aplicación
 │   ├── admin.py               # Configuración del panel de administración
-│   ├── forms.py               # Formularios de gestión
-│   ├── templates/             # Plantillas HTML
-│   ├── management/commands/   # Comandos personalizados de Django
-│   └── ...
-└── ...
+│   ├── apps.py                # Configuración de la aplicación
+│   ├── decorators.py          # Decoradores personalizados
+│   ├── forms.py               # Formularios de la aplicación
+│   ├── middleware.py          # Middleware personalizado
+│   ├── models.py              # Modelos de datos
+│   ├── signals.py             # Señales de Django
+│   ├── tests.py               # Pruebas unitarias
+│   ├── urls.py                # Configuración de URLs
+│   ├── utils.py               # Utilidades y funciones auxiliares
+│   ├── views.py               # Vistas y lógica de negocio
+│   ├── context_processors.py  # Procesadores de contexto
+│   │
+│   ├── management/           # Comandos personalizados de Django
+│   ├── migrations/           # Migraciones de la base de datos
+│   ├── templates/            # Plantillas HTML
+│   └── templatetags/         # Etiquetas personalizadas de plantillas
+│
+├── powerbi_reports/          # Carpeta para reportes de Power BI
+├── manage.py                 # Script de administración de Django
+└── requirements.txt          # Dependencias del proyecto
 ```
 
----
+## Componentes del Sistema
 
-## Requisitos
+### Archivos Principales
+
+#### manage.py
+Script principal de Django que permite ejecutar comandos administrativos como:
+- Crear migraciones
+- Ejecutar el servidor de desarrollo
+- Crear superusuarios
+- Ejecutar pruebas
+- Gestionar la base de datos
+
+#### requirements.txt
+Lista de dependencias del proyecto, incluyendo:
+- Django y sus extensiones
+- Bibliotecas para el manejo de datos
+- Herramientas de desarrollo
+- Dependencias de Power BI
+
+### Carpeta reports/
+
+#### models.py
+Define la estructura de la base de datos:
+- Modelos para almacenar datos de reportes
+- Relaciones entre entidades
+- Campos y validaciones
+- Configuración de permisos
+
+#### views.py
+Contiene la lógica de negocio principal:
+- Vistas para mostrar reportes
+- Procesamiento de datos
+- Lógica de presentación
+- Control de acceso
+
+#### urls.py
+Configura las rutas URL de la aplicación:
+- Mapeo de URLs a vistas
+- Patrones de URL
+- Nombres de URLs
+- Endpoints de API
+
+#### forms.py
+Define los formularios de la aplicación:
+- Validación de datos
+- Campos personalizados
+- Procesamiento de formularios
+- Interfaz de usuario
+
+#### utils.py
+Funciones de utilidad:
+- Procesamiento de datos
+- Funciones auxiliares
+- Herramientas comunes
+- Integración con Power BI
+
+#### decorators.py
+Decoradores personalizados:
+- Control de acceso
+- Validación de permisos
+- Funcionalidades transversales
+- Seguridad
+
+#### middleware.py
+Middleware personalizado:
+- Procesamiento de solicitudes
+- Modificación de respuestas
+- Funcionalidades globales
+- Logging y monitoreo
+
+#### signals.py
+Manejo de señales de Django:
+- Eventos del sistema
+- Acciones automáticas
+- Notificaciones
+- Sincronización
+
+#### context_processors.py
+Procesadores de contexto:
+- Variables globales para plantillas
+- Datos compartidos
+- Configuración de contexto
+- Personalización
+
+### Carpetas Especializadas
+
+#### management/
+Contiene comandos personalizados de Django para:
+- Tareas administrativas
+- Scripts de mantenimiento
+- Herramientas de gestión
+- Automatización
+
+#### migrations/
+Almacena las migraciones de la base de datos:
+- Cambios en la estructura
+- Actualizaciones de esquema
+- Historial de modificaciones
+- Control de versiones
+
+#### templates/
+Plantillas HTML:
+- Diseño de páginas
+- Componentes reutilizables
+- Estructura visual
+- Interfaz de usuario
+
+#### templatetags/
+Etiquetas personalizadas para plantillas:
+- Funciones de formato
+- Filtros personalizados
+- Utilidades de plantilla
+- Componentes UI
+
+### powerbi_reports/
+Carpeta dedicada a almacenar:
+- Reportes de Power BI
+- Archivos de configuración
+- Recursos relacionados
+- Documentación
+
+## Guía de Instalación
+
+### Requisitos Previos
 - Python 3.8 o superior
-- SQL Server instalado y configurado
-- Power BI Report Server instalado y configurado
-- Acceso a usuarios y grupos de Windows/AD
+- PostgreSQL 12 o superior
+- Power BI Report Server
+- Git
 
----
+### Pasos de Instalación
 
-## Instalación y Configuración
+1. **Clonar el Repositorio**
+   ```bash
+   git clone <url-del-repositorio>
+   cd proyecto-de-titulo
+   ```
 
-### 1. Clonar el repositorio
-```bash
-git clone <url-del-repositorio>
-cd proyecto-de-titulo-main
-```
+2. **Crear Entorno Virtual**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   venv\Scripts\activate     # Windows
+   ```
 
-### 2. Crear y activar entorno virtual
-```bash
-python -m venv venv
-venv\Scripts\activate  # En Windows
-# source venv/bin/activate  # En Linux/Mac
-```
+3. **Instalar Dependencias**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 3. Instalar dependencias
-```bash
-pip install -r requirements.txt
-```
+4. **Configurar Base de Datos**
+   ```bash
+   python manage.py migrate
+   ```
 
-### 4. Configurar la base de datos y PBIRS
-- Edita `powerbi_reports/settings.py`:
-  - Configura la sección `DATABASES` para tu SQL Server.
-  - Ajusta las credenciales y URLs en `PBIRS_CONFIG`.
+5. **Crear Superusuario**
+   ```bash
+   python manage.py createsuperuser
+   ```
 
-### 5. Ejecutar migraciones
-```bash
-python manage.py migrate
-```
+6. **Iniciar Servidor**
+   ```bash
+   python manage.py runserver
+   ```
 
-### 6. Crear superusuario
-```bash
-python manage.py createsuperuser
-```
+## Configuración del Sistema
 
-### 7. Iniciar el servidor
-```bash
-python manage.py runserver
-```
+### Configuración de Power BI
+1. Configurar conexión a PBIRS en `settings.py`
+2. Establecer credenciales de acceso
+3. Configurar permisos de usuario
 
----
+### Configuración de Base de Datos
+1. Configurar PostgreSQL
+2. Establecer variables de entorno
+3. Ejecutar migraciones
 
-## Gestión de Usuarios y Roles
+### Configuración de Seguridad
+1. Configurar autenticación
+2. Establecer roles y permisos
+3. Configurar grupos de Windows
 
-- **Usuarios**: Se gestionan desde el panel de administración web (`/admin`) o desde el panel personalizado.
-- **Roles**: Se pueden crear, editar y eliminar. Cada rol puede mapearse a un grupo de Windows/AD (campo `windows_group`).
-- **Asignación**: Los usuarios pueden tener múltiples roles. Los roles controlan el acceso a reportes.
-- **Cambio de contraseña**: Se puede cambiar desde el panel de usuarios.
+## Manual de Usuario
 
----
+### Acceso al Sistema
+1. Navegar a la URL del sistema
+2. Iniciar sesión con credenciales
+3. Acceder al dashboard principal
 
-## Gestión de Reportes
+### Gestión de Reportes
+1. Ver lista de reportes disponibles
+2. Filtrar por categoría o fecha
+3. Exportar reportes
+4. Compartir reportes
 
-- Los reportes de Power BI se sincronizan automáticamente desde PBIRS.
-- Cada reporte puede asignarse a uno o varios roles.
-- Los usuarios solo ven los reportes para los que tienen permisos según su rol y grupo de Windows.
+### Gestión de Usuarios
+1. Crear nuevos usuarios
+2. Asignar roles
+3. Gestionar permisos
+4. Configurar preferencias
 
----
+## Desarrollo y Contribución
 
-## Comandos Personalizados
+### Guía de Contribución
+1. Fork del repositorio
+2. Crear rama de desarrollo
+3. Realizar cambios
+4. Enviar pull request
 
-El sistema incluye varios comandos de administración:
+### Estándares de Código
+- PEP 8
+- Docstrings
+- Tests unitarios
+- Documentación
 
-- `sync_reports`: Sincroniza los reportes desde PBIRS.
-- `check_permissions`: Verifica los permisos de usuarios y roles en PBIRS.
-- `cleanup_reports`: Elimina reportes obsoletos que ya no existen en PBIRS.
-- `export_reports`: Exporta la configuración de reportes y roles a JSON.
-- `import_reports`: Importa reportes y roles desde un archivo JSON.
-- `backup_reports`: Realiza un respaldo completo de la configuración y datos.
-- `validate_config`: Valida la configuración del sistema y la conexión con PBIRS.
-- `generate_docs`: Genera documentación automática del sistema.
+### Proceso de Desarrollo
+1. Planificación
+2. Desarrollo
+3. Testing
+4. Revisión
+5. Despliegue
 
-Ejemplo de uso:
-```bash
-python manage.py sync_reports
-python manage.py check_permissions --user <usuario>
-```
+## Requisitos del Sistema
 
----
+### Requisitos Mínimos
+- Python 3.8+
+- Django 3.2+
+- PostgreSQL 12+
+- 4GB RAM
+- 10GB espacio en disco
 
-## Buenas Prácticas
-- Mantén sincronizados los roles de Django y los grupos de Windows/AD.
-- Asigna permisos en PBIRS solo a los grupos, no a usuarios individuales.
-- Usa HTTPS en producción.
-- Mantén el archivo `.env` seguro y fuera del control de versiones.
-- Realiza copias de seguridad regulares usando los comandos incluidos.
-- Actualiza las dependencias periódicamente.
+### Requisitos Recomendados
+- Python 3.9+
+- Django 4.0+
+- PostgreSQL 13+
+- 8GB RAM
+- 20GB espacio en disco
 
----
+## Solución de Problemas
+
+### Problemas Comunes
+1. Error de conexión a PBIRS
+2. Problemas de autenticación
+3. Errores de base de datos
+4. Problemas de rendimiento
+
+### Guía de Depuración
+1. Revisar logs
+2. Verificar configuración
+3. Probar conexiones
+4. Validar permisos
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles. 
+Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
