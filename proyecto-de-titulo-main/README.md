@@ -7,7 +7,6 @@
 ![PowerBI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/badge/Documentation-Complete-blue?style=for-the-badge)](https://github.com/your-repo/docs)
 [![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)](https://github.com/your-repo/releases)
 
@@ -31,7 +30,6 @@
 - [🏗️ Arquitectura del Sistema](#-arquitectura-del-sistema)
 - [🔄 Guía de Migración](#-guía-de-migración)
 - [⭐ Mejores Prácticas](#-mejores-prácticas)
-- [📄 Licencia](#-licencia)
 - [📞 Contacto y Soporte](#-contacto-y-soporte)
 
 ## 🎯 Descripción General
@@ -342,9 +340,7 @@ python manage.py runserver
 - 💻 Ejemplos de código
 - 🏆 Casos de éxito
 
-## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
 
 ---
 
