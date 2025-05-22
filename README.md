@@ -269,11 +269,7 @@ Etiquetas personalizadas:
 
 ## 🚀 Guía de Instalación
 
-### 📋 Requisitos Previos
-- Python 3.8+
-- PostgreSQL 12+
-- Power BI Report Server
-- Git
+
 
 ### 🛠️ Pasos de Instalación
 
