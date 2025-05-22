@@ -1,24 +1,60 @@
-# Sistema de Visualización de Reportes Power BI
+# 🚀 Sistema de Visualización de Reportes Power BI
 
-## Índice
-1. [Descripción General](#descripción-general)
-2. [Características Principales](#características-principales)
-3. [Estructura del Proyecto](#estructura-del-proyecto)
-4. [Componentes del Sistema](#componentes-del-sistema)
-5. [Guía de Instalación](#guía-de-instalación)
-6. [Configuración del Sistema](#configuración-del-sistema)
-7. [Manual de Usuario](#manual-de-usuario)
-8. [Desarrollo y Contribución](#desarrollo-y-contribución)
-9. [Requisitos del Sistema](#requisitos-del-sistema)
-10. [Solución de Problemas](#solución-de-problemas)
-11. [Licencia](#licencia)
+<div align="center">
 
-## Descripción General
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![PowerBI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Documentation](https://img.shields.io/badge/Documentation-Complete-blue?style=for-the-badge)](https://github.com/your-repo/docs)
+[![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)](https://github.com/your-repo/releases)
+
+</div>
+
+## 📋 Índice
+- [🎯 Descripción General](#-descripción-general)
+- [✨ Características Principales](#-características-principales)
+- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🔧 Componentes del Sistema](#-componentes-del-sistema)
+- [🚀 Guía de Instalación](#-guía-de-instalación)
+- [⚙️ Configuración del Sistema](#-configuración-del-sistema)
+- [📖 Manual de Usuario](#-manual-de-usuario)
+- [👨‍💻 Desarrollo y Contribución](#-desarrollo-y-contribución)
+- [💻 Requisitos del Sistema](#-requisitos-del-sistema)
+- [🔍 Solución de Problemas](#-solución-de-problemas)
+- [🔒 Seguridad](#-seguridad)
+- [🛠️ Mantenimiento](#-mantenimiento)
+- [📚 API y Documentación](#-api-y-documentación)
+- [🚀 Despliegue](#-despliegue)
+- [🏗️ Arquitectura del Sistema](#-arquitectura-del-sistema)
+- [🔄 Guía de Migración](#-guía-de-migración)
+- [⭐ Mejores Prácticas](#-mejores-prácticas)
+- [📄 Licencia](#-licencia)
+- [📞 Contacto y Soporte](#-contacto-y-soporte)
+
+## 🎯 Descripción General
 
 Este sistema es una plataforma web desarrollada en Django que permite la gestión y visualización de reportes de Power BI Report Server (PBIRS). El sistema está diseñado para proporcionar una interfaz intuitiva y segura para acceder a reportes empresariales, con un robusto sistema de control de acceso basado en roles y grupos de Windows/Active Directory.
 
-## Características Principales
+<div align="center">
+  <img src="https://via.placeholder.com/800x400?text=Sistema+de+Reportes" alt="Sistema de Reportes" width="800"/>
+</div>
 
+## ✨ Características Principales
+
+<div align="center">
+
+| 🔐 Seguridad | 📊 Visualización | 👥 Gestión |
+|:------------:|:---------------:|:----------:|
+| Autenticación 2FA | Reportes Interactivos | Usuarios y Roles |
+| Control de Acceso | KPIs en Tiempo Real | Grupos Windows/AD |
+| Encriptación | Exportación Múltiple | Permisos Granulares |
+
+</div>
+
+### 🚀 Características Destacadas
 - 🔐 Autenticación y autorización basada en roles
 - 📊 Integración nativa con Power BI Report Server
 - 👥 Gestión de usuarios y grupos de Windows/AD
@@ -30,287 +66,288 @@ Este sistema es una plataforma web desarrollada en Django que permite la gestió
 - 📊 Exportación de datos en múltiples formatos
 - 🔔 Sistema de notificaciones
 
-## Estructura del Proyecto
+## 📁 Estructura Detallada del Proyecto
 
+### 📂 Estructura Principal
 ```
 proyecto-de-titulo/
 │
-├── reports/                    # Aplicación principal de reportes
-│   ├── __init__.py            # Archivo de inicialización de la aplicación
-│   ├── admin.py               # Configuración del panel de administración
-│   ├── apps.py                # Configuración de la aplicación
-│   ├── decorators.py          # Decoradores personalizados
-│   ├── forms.py               # Formularios de la aplicación
-│   ├── middleware.py          # Middleware personalizado
-│   ├── models.py              # Modelos de datos
-│   ├── signals.py             # Señales de Django
-│   ├── tests.py               # Pruebas unitarias
-│   ├── urls.py                # Configuración de URLs
-│   ├── utils.py               # Utilidades y funciones auxiliares
-│   ├── views.py               # Vistas y lógica de negocio
-│   ├── context_processors.py  # Procesadores de contexto
+├── 📂 reports/                    # Aplicación principal de reportes
+│   ├── 📄 __init__.py            # Inicialización de la aplicación
+│   ├── 📄 admin.py               # Configuración del panel de administración
+│   ├── 📄 apps.py                # Configuración de la aplicación
+│   ├── 📄 decorators.py          # Decoradores personalizados
+│   ├── 📄 forms.py               # Formularios de la aplicación
+│   ├── 📄 middleware.py          # Middleware personalizado
+│   ├── 📄 models.py              # Modelos de datos
+│   ├── 📄 signals.py             # Señales de Django
+│   ├── 📄 tests.py               # Pruebas unitarias
+│   ├── 📄 urls.py                # Configuración de URLs
+│   ├── 📄 utils.py               # Utilidades y funciones auxiliares
+│   ├── 📄 views.py               # Vistas y lógica de negocio
 │   │
-│   ├── management/           # Comandos personalizados de Django
-│   ├── migrations/           # Migraciones de la base de datos
-│   ├── templates/            # Plantillas HTML
-│   └── templatetags/         # Etiquetas personalizadas de plantillas
+│   ├── 📂 management/           # Comandos personalizados
+│   │   └── 📂 commands/         # Scripts de administración
+│   │
+│   ├── 📂 migrations/           # Migraciones de la base de datos
+│   │   └── 📄 __init__.py
+│   │
+│   ├── 📂 templates/            # Plantillas HTML
+│   │   └── 📂 reports/
+│   │       ├── 📄 base.html           # Plantilla base
+│   │       ├── 📄 login.html          # Página de inicio de sesión
+│   │       ├── 📄 dashboard.html      # Panel principal
+│   │       ├── 📄 view_report.html    # Visualización de reportes
+│   │       ├── 📄 manage_users.html   # Gestión de usuarios
+│   │       └── 📄 manage_roles.html   # Gestión de roles
+│   │
+│   └── 📂 templatetags/         # Etiquetas personalizadas
+│       └── 📄 custom_tags.py    # Etiquetas personalizadas
 │
-├── powerbi_reports/          # Carpeta para reportes de Power BI
-├── manage.py                 # Script de administración de Django
-└── requirements.txt          # Dependencias del proyecto
+├── 📂 powerbi_reports/          # Reportes Power BI
+├── 📄 manage.py                 # Script de administración
+└── 📄 requirements.txt          # Dependencias
 ```
 
-## Componentes del Sistema
+### 📄 Descripción Detallada de Archivos
 
-### Archivos Principales
+#### 📂 Archivos Principales
 
-#### manage.py
-Script principal de Django que permite ejecutar comandos administrativos como:
-- Crear migraciones
+##### 📄 manage.py
+Script principal de Django que permite:
 - Ejecutar el servidor de desarrollo
+- Crear migraciones
+- Aplicar migraciones
 - Crear superusuarios
 - Ejecutar pruebas
-- Gestionar la base de datos
 
-#### requirements.txt
-Lista de dependencias del proyecto, incluyendo:
-- Django y sus extensiones
-- Bibliotecas para el manejo de datos
+##### 📄 requirements.txt
+Lista de dependencias del proyecto:
+- Django y extensiones
+- Bibliotecas de Power BI
 - Herramientas de desarrollo
-- Dependencias de Power BI
+- Dependencias de base de datos
 
-### Carpeta reports/
+#### 📂 Carpeta reports/
 
-#### models.py
+##### 📄 models.py
 Define la estructura de la base de datos:
-- Modelos para almacenar datos de reportes
-- Relaciones entre entidades
-- Campos y validaciones
-- Configuración de permisos
+- Modelo de Usuario
+- Modelo de Rol
+- Modelo de Reporte
+- Modelo de Permiso
+- Relaciones entre modelos
 
-#### views.py
-Contiene la lógica de negocio principal:
-- Vistas para mostrar reportes
-- Procesamiento de datos
-- Lógica de presentación
-- Control de acceso
+##### 📄 views.py
+Contiene la lógica de negocio:
+- Vistas de autenticación
+- Vistas de reportes
+- Vistas de gestión de usuarios
+- Vistas de gestión de roles
+- Vistas de dashboard
 
-#### urls.py
-Configura las rutas URL de la aplicación:
-- Mapeo de URLs a vistas
-- Patrones de URL
-- Nombres de URLs
-- Endpoints de API
+##### 📄 urls.py
+Configura las rutas URL:
+- Rutas de autenticación
+- Rutas de reportes
+- Rutas de administración
+- Rutas de API
 
-#### forms.py
-Define los formularios de la aplicación:
-- Validación de datos
-- Campos personalizados
-- Procesamiento de formularios
-- Interfaz de usuario
+##### 📄 forms.py
+Define los formularios:
+- Formulario de login
+- Formulario de usuario
+- Formulario de rol
+- Formulario de reporte
 
-#### utils.py
+##### 📄 utils.py
 Funciones de utilidad:
 - Procesamiento de datos
-- Funciones auxiliares
-- Herramientas comunes
 - Integración con Power BI
+- Funciones de seguridad
+- Herramientas comunes
 
-#### decorators.py
-Decoradores personalizados:
-- Control de acceso
-- Validación de permisos
-- Funcionalidades transversales
-- Seguridad
+#### 📂 Plantillas HTML
 
-#### middleware.py
-Middleware personalizado:
-- Procesamiento de solicitudes
-- Modificación de respuestas
-- Funcionalidades globales
-- Logging y monitoreo
+##### 📄 base.html
+Plantilla base que define:
+- Estructura HTML común
+- Menú de navegación
+- Pie de página
+- Estilos globales
+- Scripts comunes
 
-#### signals.py
-Manejo de señales de Django:
-- Eventos del sistema
-- Acciones automáticas
+##### 📄 login.html
+Página de inicio de sesión con:
+- Formulario de login
+- Validación de credenciales
+- Mensajes de error
+- Enlaces de recuperación
+
+##### 📄 dashboard.html
+Panel principal que muestra:
+- Resumen de reportes
+- KPIs principales
+- Accesos rápidos
 - Notificaciones
-- Sincronización
 
-#### context_processors.py
-Procesadores de contexto:
-- Variables globales para plantillas
-- Datos compartidos
-- Configuración de contexto
-- Personalización
+##### 📄 view_report.html
+Visualización de reportes con:
+- Integración Power BI
+- Controles de filtrado
+- Opciones de exportación
+- Compartir reportes
 
-### Carpetas Especializadas
+##### 📄 manage_users.html
+Gestión de usuarios incluye:
+- Lista de usuarios
+- Formulario de creación
+- Edición de permisos
+- Asignación de roles
 
-#### management/
-Contiene comandos personalizados de Django para:
-- Tareas administrativas
-- Scripts de mantenimiento
-- Herramientas de gestión
-- Automatización
+##### 📄 manage_roles.html
+Gestión de roles con:
+- Lista de roles
+- Permisos por rol
+- Asignación de usuarios
+- Configuración de acceso
 
-#### migrations/
-Almacena las migraciones de la base de datos:
-- Cambios en la estructura
+#### 📂 Carpetas Especializadas
+
+##### 📂 management/commands/
+Scripts de administración:
+- Sincronización de reportes
+- Backup de datos
+- Limpieza de sistema
+- Tareas programadas
+
+##### 📂 migrations/
+Archivos de migración:
+- Cambios en modelos
 - Actualizaciones de esquema
-- Historial de modificaciones
-- Control de versiones
+- Datos iniciales
+- Rollbacks
 
-#### templates/
-Plantillas HTML:
-- Diseño de páginas
+##### 📂 templatetags/
+Etiquetas personalizadas:
+- Filtros de formato
+- Funciones de utilidad
 - Componentes reutilizables
-- Estructura visual
-- Interfaz de usuario
+- Helpers de plantilla
 
-#### templatetags/
-Etiquetas personalizadas para plantillas:
-- Funciones de formato
-- Filtros personalizados
-- Utilidades de plantilla
-- Componentes UI
+### 🔄 Flujo de Datos
 
-### powerbi_reports/
-Carpeta dedicada a almacenar:
-- Reportes de Power BI
-- Archivos de configuración
-- Recursos relacionados
-- Documentación
+1. **Autenticación**
+   - Usuario accede a login.html
+   - Credenciales validadas en views.py
+   - Redirección a dashboard.html
 
-## Guía de Instalación
+2. **Visualización**
+   - Usuario selecciona reporte
+   - view_report.html carga datos
+   - Power BI renderiza visualización
 
-### Requisitos Previos
-- Python 3.8 o superior
-- PostgreSQL 12 o superior
+3. **Gestión**
+   - Administrador accede a manage_users.html
+   - Gestiona roles en manage_roles.html
+   - Cambios reflejados en base de datos
+
+### 📊 Integración con Power BI
+
+1. **Conexión**
+   - Configuración en settings.py
+   - Autenticación con PBIRS
+   - Manejo de tokens
+
+2. **Visualización**
+   - Embedding de reportes
+   - Filtros dinámicos
+   - Exportación de datos
+
+3. **Sincronización**
+   - Actualización automática
+   - Caché de reportes
+   - Manejo de errores
+
+## 🚀 Guía de Instalación
+
+### 📋 Requisitos Previos
+- Python 3.8+
+- PostgreSQL 12+
 - Power BI Report Server
 - Git
 
-### Pasos de Instalación
+### 🛠️ Pasos de Instalación
 
-1. **Clonar el Repositorio**
-   ```bash
-   git clone <url-del-repositorio>
-   cd proyecto-de-titulo
-   ```
+```bash
+# 1. Clonar el Repositorio
+git clone <url-del-repositorio>
+cd proyecto-de-titulo
 
-2. **Crear Entorno Virtual**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   venv\Scripts\activate     # Windows
-   ```
+# 2. Crear Entorno Virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 
-3. **Instalar Dependencias**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# 3. Instalar Dependencias
+pip install -r requirements.txt
 
-4. **Configurar Base de Datos**
-   ```bash
-   python manage.py migrate
-   ```
+# 4. Configurar Base de Datos
+python manage.py migrate
 
-5. **Crear Superusuario**
-   ```bash
-   python manage.py createsuperuser
-   ```
+# 5. Crear Superusuario
+python manage.py createsuperuser
 
-6. **Iniciar Servidor**
-   ```bash
-   python manage.py runserver
-   ```
+# 6. Iniciar Servidor
+python manage.py runserver
+```
 
-## Configuración del Sistema
+## 💻 Requisitos del Sistema
 
-### Configuración de Power BI
-1. Configurar conexión a PBIRS en `settings.py`
-2. Establecer credenciales de acceso
-3. Configurar permisos de usuario
+<div align="center">
 
-### Configuración de Base de Datos
-1. Configurar PostgreSQL
-2. Establecer variables de entorno
-3. Ejecutar migraciones
+| Componente | Mínimo | Recomendado |
+|:----------:|:------:|:-----------:|
+| Python | 3.8+ | 3.9+ |
+| Django | 3.2+ | 4.0+ |
+| PostgreSQL | 12+ | 13+ |
+| RAM | 4GB | 8GB |
+| Disco | 10GB | 20GB |
 
-### Configuración de Seguridad
-1. Configurar autenticación
-2. Establecer roles y permisos
-3. Configurar grupos de Windows
+</div>
 
-## Manual de Usuario
+## 📞 Contacto y Soporte
 
-### Acceso al Sistema
-1. Navegar a la URL del sistema
-2. Iniciar sesión con credenciales
-3. Acceder al dashboard principal
+<div align="center">
 
-### Gestión de Reportes
-1. Ver lista de reportes disponibles
-2. Filtrar por categoría o fecha
-3. Exportar reportes
-4. Compartir reportes
+| Canal | Detalles |
+|:-----:|:---------|
+| 📧 Email | soporte@ejemplo.com |
+| 💬 Slack | #soporte-proyecto |
+| 🎫 Jira | Proyecto de Soporte |
+| 📱 Chat | En vivo 24/7 |
 
-### Gestión de Usuarios
-1. Crear nuevos usuarios
-2. Asignar roles
-3. Gestionar permisos
-4. Configurar preferencias
+</div>
 
-## Desarrollo y Contribución
+### ⏰ Horario de Soporte
+- 🏢 Lunes a Viernes: 9:00 - 18:00
+- 🚨 Emergencias: 24/7
+- ⭐ Soporte prioritario: 8:00 - 20:00
 
-### Guía de Contribución
-1. Fork del repositorio
-2. Crear rama de desarrollo
-3. Realizar cambios
-4. Enviar pull request
+### 📚 Recursos Adicionales
+- 🎥 Video tutoriales
+- 📊 Webinars mensuales
+- 📖 Documentación técnica
+- 👥 Guías de usuario
+- 💻 Ejemplos de código
+- 🏆 Casos de éxito
 
-### Estándares de Código
-- PEP 8
-- Docstrings
-- Tests unitarios
-- Documentación
-
-### Proceso de Desarrollo
-1. Planificación
-2. Desarrollo
-3. Testing
-4. Revisión
-5. Despliegue
-
-## Requisitos del Sistema
-
-### Requisitos Mínimos
-- Python 3.8+
-- Django 3.2+
-- PostgreSQL 12+
-- 4GB RAM
-- 10GB espacio en disco
-
-### Requisitos Recomendados
-- Python 3.9+
-- Django 4.0+
-- PostgreSQL 13+
-- 8GB RAM
-- 20GB espacio en disco
-
-## Solución de Problemas
-
-### Problemas Comunes
-1. Error de conexión a PBIRS
-2. Problemas de autenticación
-3. Errores de base de datos
-4. Problemas de rendimiento
-
-### Guía de Depuración
-1. Revisar logs
-2. Verificar configuración
-3. Probar conexiones
-4. Validar permisos
-
-## Licencia
+## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
+
+---
+
+<div align="center">
+  <sub>Construido con ❤️ por el equipo de desarrollo</sub>
+</div> 
