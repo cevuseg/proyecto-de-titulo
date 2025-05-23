@@ -70,41 +70,45 @@ Este sistema es una plataforma web desarrollada en Django que permite la gestió
 ```
 proyecto-de-titulo/
 │
-├── 📂 reports/                    # Aplicación principal de reportes
-│   ├── 📄 __init__.py            # Inicialización de la aplicación
-│   ├── 📄 admin.py               # Configuración del panel de administración
-│   ├── 📄 apps.py                # Configuración de la aplicación
-│   ├── 📄 decorators.py          # Decoradores personalizados
-│   ├── 📄 forms.py               # Formularios de la aplicación
-│   ├── 📄 middleware.py          # Middleware personalizado
-│   ├── 📄 models.py              # Modelos de datos
-│   ├── 📄 signals.py             # Señales de Django
-│   ├── 📄 tests.py               # Pruebas unitarias
-│   ├── 📄 urls.py                # Configuración de URLs
-│   ├── 📄 utils.py               # Utilidades y funciones auxiliares
-│   ├── 📄 views.py               # Vistas y lógica de negocio
-│   │
-│   ├── 📂 management/           # Comandos personalizados
-│   │   └── 📂 commands/         # Scripts de administración
-│   │
-│   ├── 📂 migrations/           # Migraciones de la base de datos
-│   │   └── 📄 __init__.py
-│   │
-│   ├── 📂 templates/            # Plantillas HTML
-│   │   └── 📂 reports/
-│   │       ├── 📄 base.html           # Plantilla base
-│   │       ├── 📄 login.html          # Página de inicio de sesión
-│   │       ├── 📄 dashboard.html      # Panel principal
-│   │       ├── 📄 view_report.html    # Visualización de reportes
-│   │       ├── 📄 manage_users.html   # Gestión de usuarios
-│   │       └── 📄 manage_roles.html   # Gestión de roles
-│   │
-│   └── 📂 templatetags/         # Etiquetas personalizadas
-│       └── 📄 custom_tags.py    # Etiquetas personalizadas
-│
-├── 📂 powerbi_reports/          # Reportes Power BI
-├── 📄 manage.py                 # Script de administración
-└── 📄 requirements.txt          # Dependencias
+├──README.md
+├── proyecto-de-titulo-main/
+    │
+    │
+    ├── 📂 reports/                    # Aplicación principal de reportes
+    │   ├── 📄 __init__.py            # Inicialización de la aplicación
+    │   ├── 📄 admin.py               # Configuración del panel de administración
+    │   ├── 📄 apps.py                # Configuración de la aplicación
+    │   ├── 📄 decorators.py          # Decoradores personalizados
+    │   ├── 📄 forms.py               # Formularios de la aplicación
+    │   ├── 📄 middleware.py          # Middleware personalizado
+    │   ├── 📄 models.py              # Modelos de datos
+    │   ├── 📄 signals.py             # Señales de Django
+    │   ├── 📄 tests.py               # Pruebas unitarias
+    │   ├── 📄 urls.py                # Configuración de URLs
+    │   ├── 📄 utils.py               # Utilidades y funciones auxiliares
+    │   ├── 📄 views.py               # Vistas y lógica de negocio
+    │   │
+    │   ├── 📂 management/           # Comandos personalizados
+    │   │   └── 📂 commands/         # Scripts de administración
+    │   │
+    │   ├── 📂 migrations/           # Migraciones de la base de datos
+    │   │   └── 📄 __init__.py
+    │   │
+    │   ├── 📂 templates/            # Plantillas HTML
+    │   │   └── 📂 reports/
+    │   │       ├── 📄 base.html           # Plantilla base
+    │   │       ├── 📄 login.html          # Página de inicio de sesión
+    │   │       ├── 📄 dashboard.html      # Panel principal
+    │   │       ├── 📄 view_report.html    # Visualización de reportes
+    │   │       ├── 📄 manage_users.html   # Gestión de usuarios
+    │   │       └── 📄 manage_roles.html   # Gestión de roles
+    │   │
+    │   └── 📂 templatetags/         # Etiquetas personalizadas
+    │       └── 📄 custom_tags.py    # Etiquetas personalizadas
+    │
+    ├── 📂 powerbi_reports/          # Reportes Power BI
+    ├── 📄 manage.py                 # Script de administración
+    └── 📄 requirements.txt          # Dependencias
 ```
 
 ### 📄 Descripción Detallada de Archivos
