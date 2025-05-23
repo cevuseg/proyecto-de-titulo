@@ -71,7 +71,7 @@ Este sistema es una plataforma web desarrollada en Django que permite la gestió
 proyecto-de-titulo/
 │
 ├──README.md
-├── proyecto-de-titulo-main/
+└── proyecto-de-titulo-main/
     │
     │
     ├── 📂 reports/                    # Aplicación principal de reportes
